@@ -21,7 +21,7 @@ export default function RestaurantsPage() {
       try {
         const data = await getRestaurants(token as string);
         setRestaurants(data);
-      } catch (err) {
+      } catch {
         setError('Failed to load restaurants');
       } finally {
         setLoading(false);
@@ -52,14 +52,15 @@ export default function RestaurantsPage() {
       <h1 className="text-2xl font-semibold mb-6">Restaurants</h1>
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {restaurants.map(r => (
-          <div
+          <button
             key={r.id}
-            className="border border-slate-700 rounded-lg p-4 bg-slate-900"
+            onClick={() => router.push(`/restaurants/${r.id}`)}
+            className="text-left border border-slate-700 rounded-lg p-4 bg-slate-900 hover:bg-slate-800 w-full"
           >
             <h2 className="font-semibold text-lg">{r.name}</h2>
             <p className="text-sm text-slate-300">{r.address}</p>
             <p className="text-xs text-slate-400 mt-1">Region: {r.region}</p>
-          </div>
+          </button>
         ))}
       </div>
     </main>
